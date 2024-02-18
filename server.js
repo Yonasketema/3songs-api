@@ -3,12 +3,13 @@ require("dotenv").config({ path: ".env" });
 
 const app = require("./app");
 
-mongoose.connect(process.env.DATABASE).then(() => {
-  console.log("> DB connection successful ! ");
-});
+mongoose
+  .connect(process.env.DATABASE)
+  .then(() => console.log("> DB connection successfully"))
+  .catch(() => console.log("> DB connection failed"));
 
-const port = 3000;
+const PORT = 8000;
 
-app.listen(port, () => {
-  console.log(`> App running on port ${port}...`);
+app.listen(PORT, () => {
+  console.log(`> App running on PORT ${PORT}...`);
 });
