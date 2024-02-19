@@ -3,6 +3,7 @@ const songController = require("../controllers/songController");
 
 const router = express.Router();
 
+router.route("/songs-stats").get(songController.getSongsStats);
 router.route("/genre-stats").get(songController.getSongsGenreStats);
 router.route("/album-stats").get(songController.getAlbumSongsStats);
 router.route("/artist-stats").get(songController.getArtistSongsStats);

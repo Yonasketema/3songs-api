@@ -15,7 +15,16 @@ exports.createSong = async (req, res) => {
 };
 exports.getAllSongs = async (req, res) => {
   try {
-    const songs = await Song.find().sort("-updatedAt");
+    const { key, genre } = req.query;
+
+    console.log("XXX", key, genre);
+
+    let query = Song.find();
+
+    if (genre) query = query.find({ genre: genre });
+    if (key) query = query.find({ $text: { $search: key } });
+
+    const songs = await query.sort("-updatedAt");
 
     res.status(200).json(songs);
   } catch (err) {
@@ -57,6 +66,37 @@ exports.deleteSong = async (req, res) => {
   }
 };
 
+exports.getSongsStats = async (req, res) => {
+  try {
+    const songsStats = await Song.aggregate([
+      {
+        $group: {
+          _id: null,
+          album: { $addToSet: "$album" },
+          genre: { $addToSet: "$genre" },
+          artist: { $addToSet: "$artist" },
+          songs: { $push: "$title" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          album: { $size: "$album" },
+          genre: { $size: "$genre" },
+          artist: { $size: "$artist" },
+          songs: { $size: "$songs" },
+        },
+      },
+    ]);
+
+    res.status(200).json(songsStats);
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      error: err.message,
+    });
+  }
+};
 exports.getSongsGenreStats = async (req, res) => {
   try {
     const genre = await Song.aggregate([
