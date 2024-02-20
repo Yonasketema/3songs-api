@@ -5,18 +5,22 @@ const songSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, "a song must have title"],
+      lowercase: true,
     },
     artist: {
       type: String,
       required: [true, "a song must have artist"],
+      lowercase: true,
     },
     album: {
       type: String,
       required: [true, "a song must have album"],
+      lowercase: true,
     },
     genre: {
       type: String,
       required: [true, "a song must have genre"],
+      lowercase: true,
     },
   },
   {

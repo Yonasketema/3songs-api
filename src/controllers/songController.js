@@ -17,8 +17,6 @@ exports.getAllSongs = async (req, res) => {
   try {
     const { key, genre } = req.query;
 
-    console.log("XXX", key, genre);
-
     let query = Song.find();
 
     if (genre) query = query.find({ genre: genre });
