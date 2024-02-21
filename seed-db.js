@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 const mongoose = require("mongoose");
-const Songs = require("../src/models/songModel");
+const Songs = require("./src/models/songModel");
 
 const DATABASE_URL = "mongodb://127.0.0.1:27017/3song";
 
@@ -12,7 +12,7 @@ mongoose
 
 //READ JSON FILE
 
-const songs = JSON.parse(fs.readFileSync("./songs.json", "utf-8"));
+const songs = JSON.parse(fs.readFileSync("./dev-data/songs.json", "utf-8"));
 
 const seedData = async () => {
   try {

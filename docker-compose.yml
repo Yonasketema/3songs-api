@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  backend:
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      DATABASE_URL: mongodb://db/3songs
+    command: npm run dev
+
+  db:
+    image: mongo:4.0.28-xenial
+    ports:
+      - 27019:27017
+    volumes:
+      - 3songs:/data/db
+
+volumes:
+  3songs:
