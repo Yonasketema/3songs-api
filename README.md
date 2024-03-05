@@ -35,7 +35,7 @@
 
 ## Seeding Database
 
-   config your database url on seed-db.js 
+   config your database url on .env
 
    ```sh
    npm run seed:db
