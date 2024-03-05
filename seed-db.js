@@ -1,12 +1,11 @@
 const fs = require("fs");
+require("dotenv").config({ path: ".env" });
 
 const mongoose = require("mongoose");
 const Songs = require("./src/models/songModel");
 
-const DATABASE_URL = "mongodb://127.0.0.1:27017/3song";
-
 mongoose
-  .connect(DATABASE_URL)
+  .connect(process.env.DATABASE_URL)
   .then(() => console.log("> DB connection successfully"))
   .catch(() => console.log("> DB connection failed"));
 
